@@ -7,19 +7,10 @@ import org.jsoup.Jsoup;
 
 import java.io.IOException;
 
+import static ru.sfedu.grade_mobile.User.*;
 
-public class LoginOpenIDTask extends AsyncTask<String, Void, String> {
+public class LoginTask extends AsyncTask<String, Void, String> {
     AsyncResponse delegate = null;
-    static String login;
-    private String pass;
-    static String token;
-    static String response;
-
-    LoginOpenIDTask(String login, String pass) {
-        this.login = login;
-        this.pass = pass;
-        token = null;
-    }
 
     @Override
     protected String doInBackground(String... strings) {
@@ -33,13 +24,14 @@ public class LoginOpenIDTask extends AsyncTask<String, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (res == null) return null;
         token = res.cookie("openid_server");
+
         try {
             response = res.parse().text();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return token;
     }
 
