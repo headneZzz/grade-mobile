@@ -8,7 +8,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import static ru.sfedu.grade_mobile.LoginOpenIDTask.login;
+import static ru.sfedu.grade_mobile.LoginOpenIDTask.*;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
     public void startLoginTask(String login, String pass) {
@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     @Override
     public void processFinish(String output) {
         WebView webView = findViewById(R.id.webView);
-        if (LoginOpenIDTask.response.contains("Вы вошли как")) {
+        if (response.contains("Вы вошли как")) {
             CookieManager cookieManager = CookieManager.getInstance();
-            cookieManager.setCookie("openid.sfedu.ru", "openid_server=" + LoginOpenIDTask.token);
+            cookieManager.setCookie("openid.sfedu.ru", "openid_server=" + token);
             webView.setWebViewClient(new WebViewClient());
             webView.loadUrl("http://grade.sfedu.ru/handler/sign/openidlogin?loginopenid=" + login);
         } else {
