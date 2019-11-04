@@ -3,14 +3,17 @@ package ru.sfedu.grade_mobile;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.Gravity;
-import android.widget.TextView;
+import android.webkit.CookieManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AsyncResponse{
-    public void createNewText(){
-        LoginOpenIDTask task = new LoginOpenIDTask();
-        task.delegate=this;
+import static ru.sfedu.grade_mobile.LoginOpenIDTask.login;
+
+public class MainActivity extends AppCompatActivity implements AsyncResponse {
+    public void startLoginTask(String login, String pass) {
+        LoginOpenIDTask task = new LoginOpenIDTask(login, pass);
+        task.delegate = this;
         task.execute();
     }
 
@@ -18,12 +21,21 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createNewText();
+        startLoginTask("user", "pass");
     }
 
     @Override
     public void processFinish(String output) {
-        TextView textView = findViewById(R.id.text);
-        textView.setText(output);
+        WebView webView = findViewById(R.id.webView);
+        if (LoginOpenIDTask.response.contains("Вы вошли как")) {
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.setCookie("openid.sfedu.ru", "openid_server=" + LoginOpenIDTask.token);
+            webView.setWebViewClient(new WebViewClient());
+            webView.loadUrl("http://grade.sfedu.ru/handler/sign/openidlogin?loginopenid=" + login);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Обновите пароль!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }

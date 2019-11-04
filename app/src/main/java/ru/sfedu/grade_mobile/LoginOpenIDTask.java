@@ -2,27 +2,45 @@ package ru.sfedu.grade_mobile;
 
 import android.os.AsyncTask;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
 
 public class LoginOpenIDTask extends AsyncTask<String, Void, String> {
     AsyncResponse delegate = null;
+    static String login;
+    private String pass;
+    static String token;
+    static String response;
+
+    LoginOpenIDTask(String login, String pass) {
+        this.login = login;
+        this.pass = pass;
+        token = null;
+    }
 
     @Override
     protected String doInBackground(String... strings) {
-        String s = "";
+        Connection.Response res = null;
         try {
-            s = Jsoup.connect("http://grade.sfedu.ru/")
-                    .userAgent("Chrome/4.0.249.0 Safari/532.5")
-                    .referrer("http://www.google.com")
-                    .get().title();
+            res = Jsoup.connect("https://openid.sfedu.ru/server.php/login")
+                    .data("openid_url", login)
+                    .data("password", pass)
+                    .method(Connection.Method.POST)
+                    .execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return s;
+        token = res.cookie("openid_server");
+        try {
+            response = res.parse().text();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return token;
     }
 
     @Override
