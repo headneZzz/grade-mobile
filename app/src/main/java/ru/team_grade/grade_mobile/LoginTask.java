@@ -1,4 +1,4 @@
-package ru.sfedu.grade_mobile;
+package ru.team_grade.grade_mobile;
 
 import android.os.AsyncTask;
 
@@ -6,8 +6,6 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
-
-import static ru.sfedu.grade_mobile.User.*;
 
 public class LoginTask extends AsyncTask<String, Void, String> {
     AsyncResponse delegate = null;
@@ -17,22 +15,22 @@ public class LoginTask extends AsyncTask<String, Void, String> {
         Connection.Response res = null;
         try {
             res = Jsoup.connect("https://openid.sfedu.ru/server.php/login")
-                    .data("openid_url", login)
-                    .data("password", pass)
+                    .data("openid_url", User.login)
+                    .data("password", User.pass)
                     .method(Connection.Method.POST)
                     .execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
         if (res == null) return null;
-        token = res.cookie("openid_server");
+        User.token = res.cookie("openid_server");
 
         try {
-            response = res.parse().text();
+            User.response = res.parse().text();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return token;
+        return User.token;
     }
 
     @Override
