@@ -7,6 +7,14 @@ import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//FIXME Main activity должен открываться только 1 раз, вне зависимости, сколько раз нажата кнопка
+//FIXME Если нажать "Назад", то Login activity открываться не должен
+//TODO Сохранять данные пользователя, чтобы не вводить все время логин и пароль
+//TODO Реализовать парсер и красиво все оформить
+//TODO Сохранять данные в бд, чтобы просматривать информацию оффлайн
+//TODO Экран логина сделать покрасивее
+//TODO Добавить расписание
+
 public class MainActivity extends AppCompatActivity {
     WebView webView;
 
