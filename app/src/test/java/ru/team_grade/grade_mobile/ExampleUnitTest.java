@@ -1,4 +1,4 @@
-package ru.sfedu.grade_mobile;
+package ru.team_grade.grade_mobile;
 
 import org.junit.Test;
 

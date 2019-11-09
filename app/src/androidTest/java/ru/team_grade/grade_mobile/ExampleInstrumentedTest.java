@@ -1,4 +1,4 @@
-package ru.sfedu.grade_mobile;
+package ru.team_grade.grade_mobile;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("ru.sfedu.grade_mobile", appContext.getPackageName());
+        assertEquals("ru.team_grade.grade_mobile", appContext.getPackageName());
     }
 }
