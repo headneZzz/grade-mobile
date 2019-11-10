@@ -1,6 +1,6 @@
 package ru.team_grade.grade_mobile;
 
-class User {
+public class User {
     static String login;
     static String pass;
     static String token;
