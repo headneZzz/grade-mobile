@@ -4,12 +4,4 @@
     <string name="login">Логин</string>
     <string name="log_in">Войти</string>
     <string name="log_out">Выйти</string>
-
-    <string name="nav_name">Имя: </string>
-    <string name="nav_department">Факультет: </string>
-    <string name="nav_direction">Направление: </string>
-    <string name="nav_degree">Курс, группа: </string>
-    <string name="nav_type">Тип аккаунта: </string>
-    <string name="nav_login">Логин: </string>
-    <string name="nav_email">E-Mail: </string>
 </resources>

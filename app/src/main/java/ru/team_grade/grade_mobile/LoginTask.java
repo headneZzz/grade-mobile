@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 
@@ -27,6 +28,16 @@ public class LoginTask extends AsyncTask<String, Void, String> {
 
         try {
             User.response = res.parse().text();
+            Element element = Jsoup.connect("http://grade.sfedu.ru/handler/sign/openidlogin?loginopenid=" + User.login)
+                    .cookie("openid_server", User.token)
+                    .get()
+                    .body()
+                    .getElementsByClass("profile_wrapper")
+                    .get(0);
+            User.degree = element
+                    .getElementsByClass("profile_delimeter")
+                    .text();
+            User.name = element.getElementsByClass("username").text();
         } catch (IOException e) {
             e.printStackTrace();
         }
