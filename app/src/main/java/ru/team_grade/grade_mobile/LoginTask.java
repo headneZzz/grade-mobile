@@ -34,9 +34,7 @@ public class LoginTask extends AsyncTask<String, Void, String> {
                     .body()
                     .getElementsByClass("profile_wrapper")
                     .get(0);
-            User.degree = element
-                    .getElementsByClass("profile_delimeter")
-                    .text();
+            User.degree = element.getElementsByClass("profile_delimeter").text();
             User.name = element.getElementsByClass("username").text();
         } catch (IOException e) {
             e.printStackTrace();
