@@ -69,20 +69,20 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
                     editor.putString(SAVED_PASS, passwordEditText.getText().toString());
                     editor.apply();
                 }
-                dialog.hide();
+                dialog.dismiss();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             } else {
                 editor.clear().apply();
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Неверный логин или пароль!", Toast.LENGTH_SHORT);
-                dialog.hide();
+                dialog.dismiss();
                 toast.show();
             }
         } else {
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Проверьте подлючение к интернету!", Toast.LENGTH_SHORT);
-            dialog.hide();
+            dialog.dismiss();
             toast.show();
         }
     }
