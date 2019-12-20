@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
     }
 
     protected void createUser(String login, String password) {
-        dialog = new ProgressDialog(this);
+        dialog = new ProgressDialog(this, R.style.ProgressDialogStyle);
         dialog.setMessage("Загрузка");
         dialog.setCancelable(true);
         dialog.setInverseBackgroundForced(false);
